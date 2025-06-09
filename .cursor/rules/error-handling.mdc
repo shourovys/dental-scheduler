@@ -1,0 +1,177 @@
+---
+description: Error Handling and Boundary Components
+globs: src/**/*.{ts,tsx}
+---
+Here's how to implement **Enhanced Error Handling** in an application, ensuring a smooth user experience even in the event of failures:
+
+---
+
+### **Enhanced Error Handling for AI Code Assistant**
+
+---
+
+### **Error Handling Guidelines**
+
+#### **1. Error Boundaries**
+
+- **Global Error Boundary**
+
+  ```typescript
+  class ErrorBoundary extends React.Component<
+    PropsWithChildren<{
+      fallback: React.ReactNode;
+    }>,
+    { hasError: boolean }
+  > {
+    state = { hasError: false };
+
+    static getDerivedStateFromError() {
+      return { hasError: true };
+    }
+
+    componentDidCatch(error: Error, info: ErrorInfo) {
+      console.error('ErrorBoundary caught an error:', error, info);
+    }
+
+    render() {
+      if (this.state.hasError) {
+        return this.props.fallback;
+      }
+
+      return this.props.children;
+    }
+  }
+  ```
+
+#### **2. API Error Handling**
+
+- **Global Error Handler**
+
+  ```typescript
+  export function handleApiError(error: unknown): string {
+    if (axios.isAxiosError(error)) {
+      if (error.response?.status === 401) {
+        // Handle unauthorized
+        return 'Session expired. Please login again.';
+      }
+      return error?.response?.data?.error?.reason || 'An error occurred';
+    }
+    return 'An unexpected error occurred';
+  }
+  ```
+
+- **Type-Safe Error Handling**
+
+#### **3. Form Error Handling**
+
+- **Zod Validation**
+
+  ```typescript
+  const schema = z.object({
+    email: z.string().email('Invalid email address'),
+    password: z.string().min(8, 'Password must be at least 8 characters'),
+  });
+
+  const form = useForm<FormData>({
+    resolver: zodResolver(schema),
+  });
+  ```
+
+#### **4. Component Error States**
+
+- **Error simiplyfiyer**
+  we have useFormServerErrors for handel server form submetion errors.
+
+- **Error Components**
+
+  ```typescript
+  interface FormErrorsProps {
+    errors: string[];
+    className?: string;
+    title?: string;
+    variant?: 'default' | 'compact' | 'toast';
+    showErrorCount?: boolean;
+  }
+
+  export function FormErrors({
+    errors,
+    className,
+    title = 'Failed to submit data',
+    variant = 'default',
+    showErrorCount = true,
+  }: FormErrorsProps) {
+    return (
+      <ul className='space-y-1.5'>
+        {errors.map((error, index) => (
+          <li
+            key={error}
+            className='flex gap-2.5 items-start text-[13.5px] text-destructive'
+          >
+            <span className='flex-1 font-medium leading-relaxed line-clamp-3 max-w-[450px]'>
+              {error}
+            </span>
+          </li>
+        ))}
+      </ul>
+    );
+  }
+  ```
+
+## #### **5. Async Error Handling**
+
+useSWR, useSWRMutation error handeld globaly. if needed errors are handeld on useSWR, useSWRMutation call.
+
+#### **6. Loading and Error Feedback**
+ show loading and error feedback
+
+
+#### **7. Best Practices**
+
+- Use type-safe error handling
+- Implement proper error boundaries
+- Show user-friendly error messages
+- Handle all async operations
+- Log errors appropriately
+- Provide fallback UI states
+- Use toast for notifications
+- Handle network errors
+- Validate form inputs
+- Handle API errors consistently
+
+This ensures:
+✅ Graceful error handling
+✅ Type-safe error management
+✅ User-friendly error messages
+✅ Consistent error patterns
+✅ Proper error recovery
+
+---
+
+### **Outcome:**
+
+✅ **A Robust & Resilient Application:**
+
+- The app gracefully handles errors while maintaining usability and performance.
+- **Structured logging** helps in faster debugging, and **clear error messages** improve user satisfaction.
+
+---
+
+### **Implementation Guidelines:**
+
+#### **1. Error Detection & Auto-Suggestions**
+
+📌 If reviewing or generating code with insufficient error handling:
+
+- **Suggest adding `try/catch` blocks**, **Error Boundaries**, and **structured logging** to handle errors more effectively.
+
+#### **2. Code Refactoring for Maintainability**
+
+📌 If error-handling code is repeated in multiple files, suggest **abstracting it** into a shared utility (e.g., `src/utils/errorHandler.ts`).
+
+#### **3. Context-Aware Logging & Insights**
+
+📌 When reviewing errors, check the `scratchpad.md` file for **previous debugging patterns** and known issues to provide more **accurate recommendations**.
+
+#### **4. Proactive Fixes & Code Improvements**
+
+📌 If a potential error source is detected (e.g., missing **null checks** or improper **API response handling**), propose and implement fixes proactively to avoid runtime issues.

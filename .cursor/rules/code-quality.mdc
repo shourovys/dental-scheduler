@@ -1,0 +1,85 @@
+---
+description: Code Quality, Linting, and Formatting
+globs: 
+---
+### **Refined Code Quality, Linting, and Formatting Guidelines**
+
+---
+
+### **Guidelines:**
+
+✅ **Enforce coding standards** to ensure consistency, readability, and maintainability across the codebase.
+
+---
+
+### **Best Practices:**
+
+#### **1. Use ESLint and Prettier**
+
+🔹 **ESLint** → Enforce coding rules and static analysis.  
+🔹 **Prettier** → Automatically format code to maintain style consistency.  
+🔹 **Config:** Ensure both tools are integrated with project workflows (`.eslintrc.js` and `.prettierrc`).
+
+#### **2. Automate Linting & Formatting**
+
+🔹 **Pre-commit Hooks:** Use `husky` and `lint-staged` to check code before commits.  
+🔹 **CI Pipeline Checks:** Add ESLint and Prettier as part of the CI workflow to prevent bad code merges.
+
+#### **3. Maintain Readability & Documentation**
+
+🔹 **Meaningful Naming:** Use clear, self-explanatory variable and function names.  
+🔹 **Comments & JSDoc:** Document complex logic and API contracts for better collaboration.  
+🔹 **Follow Conventions:** Adhere to existing project style guides (e.g., Airbnb, StandardJS).
+
+---
+
+### **Expected Outcome:**
+
+✅ **A maintainable, clean, and bug-free codebase** that facilitates team collaboration through consistent coding practices.
+
+---
+
+### **Additional Instructions:**
+
+#### **1. Task Analysis & Scratchpad Integration**
+
+📌 **Before generating or modifying code:**  
+🔹 The assistant **must review** the current Scratchpad content (`scratchpad.md`) to align with existing standards.  
+🔹 Any new linting or formatting tasks should be documented with **TODO markers**:
+
+- `[X] Setup ESLint config`
+- `[ ] Integrate Prettier with CI`
+
+#### **2. Logging Lessons Learned**
+
+📌 **For recurring issues (e.g., misconfigured ESLint rules, formatting inconsistencies):**  
+🔹 Log observations in the **Lessons** section of `scratchpad.md`.  
+🔹 Use this knowledge to prevent repeated mistakes in future code reviews.
+
+#### **3. Code Generation & Refactoring**
+
+📌 **When generating or modifying code:**  
+🔹 **Automatically apply ESLint and Prettier settings.**  
+🔹 Suggest necessary adjustments to meet coding standards.  
+🔹 If non-compliant code is detected, provide:
+
+- A **summary of discrepancies**
+- **Corrective actions** (e.g., adjust ESLint rules, modify commit hooks)
+
+#### **4. Consistency & Verification**
+
+📌 **Ensure continuous adherence to standards during reviews:**  
+🔹 Detect and flag inconsistencies.  
+🔹 Propose a **refactoring plan** and update the Scratchpad with detailed resolution notes.
+
+---
+
+### **Implementation Stack:**
+
+📌 **Tools & Dependencies:**  
+✅ ESLint (`eslint`, `eslint-config-airbnb`, `eslint-plugin-react`, etc.)  
+✅ Prettier (`prettier`, `eslint-config-prettier`, `eslint-plugin-prettier`)  
+✅ Pre-commit Hooks (`husky`, `lint-staged`)  
+✅ CI Integration (`GitHub Actions`, `GitLab CI/CD`, `CircleCI`)
+
+This refined approach ensures **high-quality, scalable, and maintainable** frontend code while integrating AI-assisted automation into the workflow. 🚀

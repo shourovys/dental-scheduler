@@ -1,0 +1,106 @@
+---
+description: Accessibility and SEO
+globs: src/components/**/*.tsx
+---
+### **Accessibility and SEO for AI Code Assistant**
+
+---
+
+### **Guidelines:**
+
+✅ Ensure that the UI is both **accessible** to all users and **optimized** for search engines, following modern web standards.
+
+---
+
+### **Best Practices:**
+
+#### **1. Semantic HTML and ARIA**
+
+🔹 **Semantic HTML:**
+
+- Use appropriate HTML elements like `<header>`, `<nav>`, `<main>`, and `<footer>` for meaningful page structure.
+- Avoid using divs and spans for layout purposes; instead, choose elements that convey the correct semantics.
+
+🔹 **ARIA (Accessible Rich Internet Applications):**
+
+- Implement ARIA attributes where necessary (e.g., `aria-label`, `aria-labelledby`, `aria-live`) to enhance accessibility for screen readers.
+- Avoid overuse of ARIA when native HTML elements can provide the same functionality.
+
+#### **2. Keyboard Navigability**
+
+🔹 **Interactive Components:**
+
+- Ensure all buttons, links, and form controls are **keyboard-navigable**.
+- Include clear **focus states** (e.g., borders or color changes) so users can easily track their navigation.
+- Provide logical tab order and **skip navigation** options for a smooth experience.
+
+#### **3. SEO Optimization**
+
+🔹 **Images and Media:**
+
+- Use `alt` attributes to describe images for better accessibility.
+- Implement **responsive images** (`<img srcset>` or `<picture>` tags) to ensure images display correctly on various devices.
+- Add captions and transcripts for videos, if applicable.
+
+🔹 **Meta Tags:**
+
+- Ensure pages have descriptive `<title>` and `<meta name="description">` tags for search engine optimization.
+- Add Open Graph (`og:*`) and Twitter Card tags to improve sharing on social media.
+
+🔹 **Server-Side Rendering (SSR):**
+
+- Implement SSR for critical pages to improve **content discoverability** by search engines.
+
+---
+
+### **Expected Outcome:**
+
+✅ An inclusive application that is both **accessible** to all users and **discoverable** by search engines, enhancing user experience and SEO performance.
+
+---
+
+### **Additional AI Code Assistant Instructions:**
+
+#### **1. Task Analysis & Scratchpad Integration**
+
+📌 **Before generating or modifying UI code:**
+
+- Review the current Scratchpad content in `scratchpad.md` to align with accessibility and SEO standards.
+- Any new tasks related to accessibility or SEO should be documented using **TODO markers**:
+  - `[X] Ensure semantic markup`
+  - `[ ] Optimize meta tags`
+
+#### **2. Logging Lessons Learned**
+
+📌 **For recurring issues (e.g., missing ARIA labels, poor keyboard navigability, or SEO gaps):**
+
+- Log these issues in the **Lessons** section of `scratchpad.md` for future reference.
+- Use these lessons to improve accessibility and SEO practices going forward.
+
+#### **3. Code Generation & Refactoring**
+
+📌 **For UI components generation or refactoring:**
+
+- Automatically apply **semantic HTML** practices and **ARIA attributes**.
+- Verify that interactive components are fully **keyboard-navigable** and have proper **focus management**.
+- Suggest improvements for **image optimization** (e.g., alt attributes, responsive images) and **meta tag** enhancements during code reviews.
+
+#### **4. Consistency & Verification**
+
+📌 **Continuous verification** of code against accessibility and SEO guidelines:
+
+- Ensure generated or refactored code meets accessibility standards.
+- If inconsistencies are found, propose a **migration plan** to fix the issues and update the Scratchpad with detailed instructions.
+
+---
+
+### **Implementation Stack:**
+
+📌 **Tools & Dependencies:**  
+✅ **React a11y (Accessibility) Library**  
+✅ **React Helmet** (for managing document head)  
+✅ **Lighthouse** (for accessibility and SEO auditing)  
+✅ **Next.js** (for server-side rendering)  
+✅ **Image Optimization** tools (`next/image`, `sharp`, etc.)
+
+This structured approach ensures **optimized user experience** for all users while improving SEO and accessibility standards across the project. 🚀

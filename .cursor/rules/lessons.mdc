@@ -1,0 +1,61 @@
+---
+description: Project Knowledge Base and Best Practices
+globs: 
+---
+## **Project Knowledge Base**
+
+### **Technical Solutions**
+#### Resolved Issues
+1. **Issue**: [Issue Name]
+   - **Context**: [What was the problem]
+   - **Solution**: [How it was solved]
+   - **Prevention**: [How to prevent similar issues]
+   - **References**: [Related documentation/PRs]
+
+2. **Issue**: [Issue Name]
+   - **Context**: [What was the problem]
+   - **Solution**: [How it was solved]
+   - **Prevention**: [How to prevent similar issues]
+   - **References**: [Related documentation/PRs]
+
+### **Project Standards**
+#### Architecture Decisions
+- **Pattern**: [Pattern Name]
+  - **Use Case**: [When to use]
+  - **Implementation**: [How to implement]
+  - **Example**: [Code example]
+
+#### Code Conventions
+- **Naming**: [Convention description]
+- **Structure**: [Organization rules]
+- **Testing**: [Testing requirements]
+
+### **Dependencies**
+#### Core Libraries
+- **Library**: [Name and Version]
+  - **Purpose**: [Why it's used]
+  - **Configuration**: [Key settings]
+  - **Best Practices**: [Usage guidelines]
+
+#### Development Tools
+- **Tool**: [Name and Version]
+  - **Purpose**: [Why it's used]
+  - **Setup**: [Configuration steps]
+  - **Usage**: [How to use effectively]
+
+### **Performance Patterns**
+#### Optimizations
+- **Pattern**: [Optimization Name]
+  - **Purpose**: [What it improves]
+  - **Implementation**: [How to implement]
+  - **Metrics**: [How to measure impact]
+
+#### Anti-patterns
+- **Pattern**: [Anti-pattern Name]
+  - **Issue**: [Why it's problematic]
+  - **Alternative**: [Better approach]
+  - **Migration**: [How to fix existing instances]
+
+#### use scratchpad.md for this
+
+This knowledge base is continuously updated to maintain best practices and solutions. 

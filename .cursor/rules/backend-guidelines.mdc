@@ -1,0 +1,221 @@
+---
+description: Backend Development Guidelines
+globs: src/**/*
+---
+**Backend Development Guidelines**
+
+-→ Feah, us - → Request handlers - **`services/`** → Business logic - **`repositories/`** → Database queries - **`routes/`** → Route definitions - **`models/`** → Data models - **`dto/`** → Data Transfer Objects - **`types/`** → Type definitions
+
+- **`middleware/`** → Express middleware
+- **`utils/`** → Utility functions
+- **`config/`** → Configuration
+- **`common/`** → Shared code
+
+### TypeScript Best Practices
+
+- Enable strict mode in `tsconfig.json`
+- Use proper type definitions for all variables
+- Implement interfaces for data models
+- Use enums for constant values
+- Leverage generics for reusable code
+- Use type guards for runtime checks
+
+### Clean Code Principles
+
+- Follow SOLID principles
+- Implement Single Responsibility
+- Use dependency injection
+- Keep functions pure when possible
+- Use meaningful variable names
+- Document complex logic
+- Use early returns
+- Avoid nested conditionals
+
+## 2. API Development
+
+### RESTful Design
+
+- Use proper HTTP methods (GET, POST, PUT, DELETE)
+- Implement proper status codes
+- Version APIs (/api/v1/...)
+- Use plural nouns for resources
+- Implement proper pagination
+- Use query parameters for filtering
+- Support proper error responses
+
+### Request/Response Structure
+
+- use apiResponse util functions for consistent request/response format
+
+### Validation
+
+- Sanitize user input
+- Use `express-validator` for request validation
+- Implement Joi/class-validator
+- Use custom validation pipes
+- Handle all edge cases
+
+## 3. Authentication & Authorization
+
+### JWT Implementation
+
+- Use access and refresh tokens
+- Implement proper token expiry
+- Store tokens securely
+- Implement token rotation
+- Implement proper logout
+
+### Security Measures
+
+- Hash passwords with bcrypt
+- Implement rate limiting
+- Use CORS properly
+- Validate JWT on each request
+- Implement CSRF protection
+- Use helmet middleware
+- Follow OWASP guidelines
+
+## 4. Database Management
+
+### MongoDB (Mongoose)
+
+- Use proper schema validation
+- Implement indexes
+- Use lean queries
+- Implement proper error handling
+- Use transactions when needed
+- Implement proper relations
+
+### SQL (Prisma)
+
+- Use migrations
+- Implement proper relations
+- Use transactions
+- Optimize queries
+- Use connection pooling
+- Implement proper indexes
+
+## 5. Performance Optimization
+
+### Caching Strategy
+
+- Implement Redis caching
+- Use proper cache invalidation
+- Cache frequently accessed data
+- Implement cache middleware
+- Use proper TTL values
+- Handle cache errors
+
+### Query Optimization
+
+- Use proper indexes
+- Implement pagination
+- Use projections
+- Optimize joins/lookups
+- Use batch operations
+- Monitor query performance
+
+## 6. Error Handling
+
+### Global Error Handler
+
+- globalErrorHandler
+
+### Error Types
+
+- Validation Errors
+- Authentication Errors
+- Authorization Errors
+- Database Errors
+- Network Errors
+- Business Logic Errors
+
+## 7. Logging and Monitoring
+
+### Logging Strategy
+
+```typescript
+interface LogEntry {
+  level: 'info' | 'warn' | 'error' | 'debug';
+  message: string;
+  timestamp: Date;
+  context?: Record<string, any>;
+}
+
+class Logger {
+  info(message: string, context?: Record<string, any>): void;
+  error(message: string, error: Error, context?: Record<string, any>): void;
+  warn(message: string, context?: Record<string, any>): void;
+  debug(message: string, context?: Record<string, any>): void;
+}
+```
+
+### Monitoring Setup
+
+- Use proper logging levels
+- Implement request tracking
+- Monitor performance metrics
+- Track error rates
+- Monitor resource usage
+- Set up alerts
+
+## 8. Background Processing
+
+### Queue Management
+
+- Use BullMQ for job queues
+- Implement job retries
+- Handle failed jobs
+- Monitor queue health
+- Implement job priorities
+- Use proper concurrency
+
+### Worker Implementation
+
+```typescript
+interface JobProcessor<T> {
+  process(data: T): Promise<void>;
+  onFailed(job: Job<T>, err: Error): Promise<void>;
+  onCompleted(job: Job<T>, result: any): Promise<void>;
+}
+```
+
+## 9. Documentation
+
+### API Documentation
+
+- Use Swagger
+- Document all endpoints
+- Include request/response examples
+- Document error responses
+- Include authentication details
+- Keep documentation updated
+
+### Code Documentation
+
+- Use TSDoc comments
+- Document complex logic
+- Include usage examples
+- Document edge cases
+- Keep README updated
+- Document configuration
+
+## 10. Utility Functions
+
+### Use Base Service Utility
+
+### Use Base Controller Utility
+
+### Use Base api Response
+
+### Use Logger
+
+
+This structure ensures:
+✅ Consistent code organization
+✅ Type safety
+✅ Proper error handling
+✅ Scalable architecture
+✅ Maintainable codebase
+✅ Performance optimization
+✅ Security best practices

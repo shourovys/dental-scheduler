@@ -1,0 +1,73 @@
+---
+description: Performance Optimization
+globs: 
+---
+### **Performance Optimization for AI Code Assistant**  
+
+- **Guidelines:**  
+  • Optimize the application’s performance by reducing unnecessary re-renders and optimizing asset loading.  ### **Performance Optimization for AI Code Assistant**
+
+- **Guidelines:**  
+  • Optimize the application’s performance by reducing unnecessary re-renders and optimizing asset loading.  
+  • Ensure best practices are applied consistently to maintain a fast and scalable UI as complexity increases.
+
+---
+
+### **Best Practices:**
+
+#### **1. Code Splitting & Lazy Loading**
+
+- Use **`React.lazy`** and **`Suspense`** to defer loading non-critical components, reducing the initial bundle size.
+- Optimize route-based code splitting using **`React Router`’s lazy loading** to prevent unnecessary JavaScript execution.
+- Avoid large initial state loads; dynamically fetch data as needed.
+
+#### **2. Memoization Techniques**
+
+- Use **`React.memo`** for pure functional components to prevent re-renders when props remain unchanged.
+- Use **`useMemo`** for computationally expensive operations to prevent recalculations on every render.
+- Use **`useCallback`** for passing stable function references to child components, reducing unnecessary renders.
+
+#### **3. Reducing Render & Reconciliation Overhead**
+
+- Avoid unnecessary state updates—batch state updates using **`React’s concurrent mode`** (where available).
+- Prevent unnecessary prop drilling—use **Context API, Zustand, or Recoil** for state management where applicable.
+- Optimize list rendering using **keys** and **windowing techniques (e.g., `react-window`, `react-virtualized`)** for large datasets.
+
+#### **4. Asset Optimization**
+
+- Optimize images using **WebP** and **AVIF** formats to reduce size without quality loss.
+- Use **lazy loading** for images and assets with **`loading="lazy"`** and **dynamic imports** for heavy modules.
+- Enable **Gzip/Brotli compression** in the backend and set proper cache policies for static assets.
+
+#### **5. Continuous Monitoring & Profiling**
+
+- Use **React DevTools Profiler** to identify render bottlenecks.
+- Integrate **Lighthouse**, **Web Vitals**, and **Performance API** to track runtime performance.
+- Log and analyze render cycles using **`why-did-you-render`** for debugging unnecessary renders.
+
+---
+
+### **Outcome:**
+
+✅ A fast, responsive UI that scales efficiently with increasing complexity and user load.  
+✅ Reduced memory consumption and optimized asset loading for better page speed and SEO.  
+✅ A well-structured application that prevents performance regressions through continuous monitoring.
+
+---
+
+💡 **Task Planning & Performance Monitoring:**
+
+- Before generating performance-optimized code, analyze the current scratchpad (`scratchpad.md`) and document the identified bottlenecks.
+- Plan the optimization task using **progress markers** (e.g., `[X] Optimize List Rendering`, `[ ] Improve Image Loading`).
+
+⚡ **Automated Performance Checks & Suggestions:**
+
+- If generating a component, **automatically apply `React.memo` if it’s a pure component**.
+- When detecting **expensive computations inside a render cycle**, **suggest `useMemo` or `useCallback`** as needed.
+- Ensure **list rendering includes a proper key** and suggest using **virtualization** for large datasets.
+
+📌 **Self-Improvement & Lessons Logging:**
+
+- After optimizing a component, **log the changes in the "Lessons" section** (e.g., "Found excessive prop drilling in `UserTable`; replaced with Context API").
+- Automatically flag **inefficient patterns** (e.g., deeply nested states, unnecessary re-renders) and suggest alternatives in future tasks.
+

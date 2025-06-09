@@ -1,0 +1,73 @@
+---
+description: Project Structure and File Organization
+globs: src/**/*
+---
+---
+description: Project Structure and File Organization
+globs: 
+---
+### **Project Structure Guidelines**
+
+#### **Core Directories**
+- **`src/`** → Main source code
+  - **`components/`** → React components
+    - **`ui/`** → Shadcn UI components and base UI elements
+    - **`common/`** → Shared components
+    - **`modals/`** → Modal components
+    - **`loading/`** → Loading states and skeletons
+    - **`pages/`** → Page-specific components
+    - **`maps/`** → Map-related components
+    - **`table/`** → Table components and utilities
+    - **`HOC/`** → Higher-Order Components
+    - **`atomic/`** → Atomic design components
+  - **`api/`** → API integration and services
+  - **`hooks/`** → Custom React hooks
+  - **`contexts/`** → React Context providers
+  - **`lib/`** → Shared utilities and libraries
+  - **`app/`** → Route components
+  - **`routes/`** → Routing configuration
+  - **`types/`** → TypeScript type definitions
+  - **`utils/`** → Helper functions
+  - **`reducers/`** → State management reducers
+  - **`app/**/layout.tsx`** → Layout components
+  - **`config/`** → Configuration files
+
+#### **File Naming Conventions**
+- **Components**: PascalCase (e.g., `Card.tsx`, `UserProfile.tsx`)
+- **Utilities**: camelCase (e.g., `formatDate.ts`, `apiClient.ts`)
+- **Types**: with type suffix (e.g., `user.type.ts`, `ApiResponse.ts`)
+- **Hooks**: camelCase with 'use' prefix (e.g., `useAuth.ts`, `useForm.ts`)
+
+#### **Component Structure**
+- Each component should:
+  - Use TypeScript with proper type definitions
+  - Follow ShadcnUI patterns where applicable
+  - Include proper prop types and documentation
+  - Implement error boundaries where needed
+  - Use proper loading states
+
+#### **Best Practices**
+- Keep components focused and single-responsibility
+- Use proper folder structure for feature organization
+- Implement lazy loading for route components
+- Follow consistent import ordering
+- Use proper TypeScript types everywhere
+- Implement proper error boundaries
+- Use SWR for data fetching
+- Follow accessibility guidelines
+
+#### **Code Organization**
+- Group related files together
+- Keep component files relatively small
+- Extract complex logic into custom hooks
+- Use proper TypeScript types and interfaces
+- Follow consistent code formatting
+- Implement proper error handling
+- Use proper loading states
+
+This structure ensures:
+✅ Clear organization of code
+✅ Easy navigation and maintenance
+✅ Consistent patterns across the project
+✅ Scalable architecture
+✅ Type safety throughout the application

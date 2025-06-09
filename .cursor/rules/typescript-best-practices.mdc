@@ -1,0 +1,162 @@
+---
+description: TypeScript Best Practices
+globs: src/**/*.ts src/**/*.tsx
+---
+### **TypeScript Best Practices**
+
+#### **1. Type Safety Configuration**
+- **TSConfig Settings** (`tsconfig.json`)
+  ```json
+  {
+    "compilerOptions": {
+      "strict": true,
+      "target": "ESNext",
+      "module": "ESNext",
+      "moduleResolution": "bundler",
+      "allowImportingTsExtensions": true,
+      "resolveJsonModule": true,
+      "isolatedModules": true,
+      "noEmit": true,
+      "jsx": "react-jsx",
+      "paths": {
+        "@/*": ["./src/*"]
+      }
+    }
+  }
+  ```
+
+#### **2. Component Types**
+- **Props Typing**
+  ```typescript
+  interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+    variant?: 'default' | 'outline' | 'ghost';
+    size?: 'sm' | 'md' | 'lg';
+    isLoading?: boolean;
+  }
+
+  const Button: React.FC<ButtonProps> = ({
+    variant = 'default',
+    size = 'md',
+    isLoading,
+    children,
+    ...props
+  }) => {
+    // Component implementation
+  };
+  ```
+
+#### **3. API Types**
+- **Request/Response Types**
+  ```typescript
+  interface ApiResponse<T> {
+    data: T;
+    status: number;
+    message: string;
+  }
+
+  interface UserResponse {
+    id: string;
+    name: string;
+    email: string;
+    role: UserRole;
+  }
+
+  type ApiError = {
+    code: string;
+    message: string;
+    details?: Record<string, string[]>;
+  };
+  ```
+
+#### **4. Form Handling with Zod**
+- **Schema Definition**
+  ```typescript
+  import { z } from 'zod';
+
+  const userSchema = z.object({
+    name: z.string().min(2, 'Name must be at least 2 characters'),
+    email: z.string().email('Invalid email address'),
+    password: z.string().min(8, 'Password must be at least 8 characters')
+  });
+
+  type UserFormData = z.infer<typeof userSchema>;
+  ```
+
+#### **5. State Management Types**
+- **Context Types**
+  ```typescript
+  interface AuthState {
+    user: User | null;
+    isAuthenticated: boolean;
+    isLoading: boolean;
+  }
+
+  interface AuthContext extends AuthState {
+    login: (credentials: LoginCredentials) => Promise<void>;
+    logout: () => Promise<void>;
+    updateUser: (data: Partial<User>) => Promise<void>;
+  }
+  ```
+
+#### **6. Utility Types**
+- **Common Type Utilities**
+  ```typescript
+  type Nullable<T> = T | null;
+  type Optional<T> = T | undefined;
+  type AsyncReturnType<T extends (...args: any) => Promise<any>> = 
+    T extends (...args: any) => Promise<infer R> ? R : any;
+  ```
+
+#### **7. Type Guards**
+- **Custom Type Guards**
+  ```typescript
+  function isApiError(error: unknown): error is ApiError {
+    return (
+      typeof error === 'object' &&
+      error !== null &&
+      'code' in error &&
+      'message' in error
+    );
+  }
+  ```
+
+#### **8. Event Handling**
+- **Event Types**
+  ```typescript
+  function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
+    const value = event.target.value;
+  }
+
+  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+  }
+  ```
+
+#### **9. Enum and Constants**
+- **Type-Safe Enums**
+  ```typescript
+  const UserRole = {
+    ADMIN: 'ADMIN',
+    USER: 'USER',
+    GUEST: 'GUEST'
+  } as const;
+
+  type UserRole = typeof UserRole[keyof typeof UserRole];
+  ```
+
+#### **10. Best Practices**
+- Use `type` for unions, intersections, and mapped types
+- Use `interface` for object shapes that might be extended
+- Avoid `any`, use `unknown` for unknown types
+- Use generics for reusable type patterns
+- Implement proper error boundaries with types
+- Use discriminated unions for state management
+- Keep types close to where they're used
+- Use path aliases for cleaner imports
+
+This ensures:
+✅ Type safety across the application
+✅ Better IDE support and autocompletion
+✅ Catch errors at compile time
+✅ Self-documenting code
+✅ Improved maintainability

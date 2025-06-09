@@ -1,0 +1,145 @@
+---
+description: Component Architecture and Reusability Guidelines
+globs: src/components/**/*
+---
+---
+description: Component Architecture and Reusability Guidelines
+globs: src/components/**/*
+---
+### **Component Architecture Guidelines**
+
+#### **1. Component Categories**
+- **UI Components** (`src/components/ui/`)
+  - Shadcn UI components and base elements
+  - Follow Radix UI primitive patterns
+  - Use compound component patterns
+  - Maintain accessibility standards
+
+- **Common Components** (`src/components/common/`)
+  - Reusable across multiple features
+  - Business-logic free
+  - Properly typed props
+  - Clear documentation
+
+- **Feature Components**
+  - **Modals** (`src/components/modals/`)
+    - Self-contained dialog components
+    - Handle their own state
+    - Use proper accessibility patterns
+  
+  - **Loading States** (`src/components/loading/`)
+    - Skeleton loaders
+    - Spinners and progress indicators
+    - Fallback states
+
+  - **Maps** (`src/components/maps/`)
+    - Map-specific components
+    - Leaflet integration
+    - Location-based features
+
+  - **Tables** (`src/components/table/`)
+    - Data grid components
+    - Sorting and filtering logic
+    - Pagination handlers
+
+#### **2. Component Implementation**
+- **TypeScript Usage**
+  ```typescript
+  interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+    variant?: 'default' | 'outline' | 'ghost';
+    size?: 'sm' | 'md' | 'lg';
+  }
+  ```
+
+- **ShadcnUI Patterns**
+  ```typescript
+  const Component = React.forwardRef<HTMLElement, ComponentProps>(
+    ({ className, ...props }, ref) => {
+      return (
+        <div
+          ref={ref}
+          className={cn('base-styles', className)}
+          {...props}
+        />
+      );
+    }
+  );
+  ```
+
+#### **3. Component Organization**
+- **File Structure**
+  ```
+  ComponentName/
+  ├── index.tsx        # Main component
+  ├── types.ts         # Component types
+  ├── utils.ts         # Helper functions
+  └── components/      # Sub-components
+  ```
+
+- **Import Organization**
+  ```typescript
+  // 1. React and external libraries
+  import * as React from 'react';
+  import { motion } from 'framer-motion';
+  
+  // 2. Internal components and utilities
+  import { cn } from '@/lib/utils';
+  import { Button } from '@/components/ui/button';
+  
+  // 3. Types and constants
+  import type { ComponentProps } from './types';
+  ```
+
+#### **4. Best Practices**
+- **State Management**
+  - Use hooks for complex state
+  - Keep state close to where it's used
+  - Lift state up when needed
+  - Use context for global state
+
+- **Performance**
+  - Implement proper memoization
+  - Use lazy loading for large components
+  - Optimize re-renders
+  - Handle loading states
+
+- **Error Handling**
+  - Implement error boundaries
+  - Provide fallback UI
+  - Handle edge cases
+  - Show user-friendly errors
+
+#### **5. Component Patterns**
+- **Compound Components**
+  ```typescript
+  const Card = { Root, Header, Body, Footer };
+  ```
+
+- **Render Props**
+  ```typescript
+  <DataLoader>
+    {(data) => <DisplayComponent data={data} key={data.id} />}
+  </DataLoader>
+  ```
+
+- **HOCs** (`src/components/HOC/`)
+  ```typescript
+  const withAuth = (Component: React.ComponentType) => {
+    return (props: Props) => {
+      // Auth logic
+    };
+  };
+  ```
+
+#### **6. Testing Considerations**
+- Write unit tests for components
+- Test accessibility features
+- Test loading and error states
+- Test user interactions
+
+This architecture ensures:
+✅ Consistent component patterns
+✅ Type safety and maintainability
+✅ Proper error handling
+✅ Optimal performance
+✅ Accessibility compliance

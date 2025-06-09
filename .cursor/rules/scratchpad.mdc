@@ -1,0 +1,55 @@
+---
+description: Active Development Tracking and Progress Management
+globs: 
+---
+## **Development Scratchpad**
+
+### **Current Sprint**
+- **Active Tasks**
+  - [ ] Task 1: [Description]
+  - [ ] Task 2: [Description]
+
+- **Blockers**
+  - [ ] Blocker 1: [Description]
+  - [ ] Blocker 2: [Description]
+
+### **In Progress Features**
+- **Feature 1**: [Feature Name]
+  - [ ] Component implementation
+  - [ ] API integration
+  - [ ] Testing
+  - [ ] Documentation
+
+- **Feature 2**: [Feature Name]
+  - [ ] Component implementation
+  - [ ] API integration
+  - [ ] Testing
+  - [ ] Documentation
+
+### **Technical Debt**
+- **High Priority**
+  - [ ] Issue 1: [Description]
+  - [ ] Issue 2: [Description]
+
+- **For Review**
+  - [ ] Review 1: [Description]
+  - [ ] Review 2: [Description]
+
+### **Notes & Observations**
+#### Performance
+- Note performance-related observations here
+
+#### User Experience
+- Note UX-related observations here
+
+#### Technical Issues
+- Note technical issues and potential solutions here
+
+### **Next Steps**
+1. [Next immediate action]
+2. [Following action]
+3. [Future consideration]
+
+#### follow above style for update `scratchpad.md`
+
+This scratchpad is actively maintained during development to track progress and issues.

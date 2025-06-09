@@ -1,0 +1,152 @@
+---
+description: Tailwind CSS and ShadcnUI Styling Guidelines
+globs: src/**/*.tsx
+---
+### **Tailwind CSS Guidelines**
+
+#### **1. Configuration**
+- **Tailwind Config** (`tailwind.config.js`)
+  ```javascript
+  const { fontFamily } = require('tailwindcss/defaultTheme');
+
+  /** @type {import('tailwindcss').Config} */
+  module.exports = {
+    darkMode: ['class'],
+    content: ['./src/**/*.{ts,tsx}'],
+    theme: {
+      container: {
+        center: true,
+        padding: '2rem',
+        screens: {
+          '2xl': '1400px',
+        },
+      },
+      extend: {
+        colors: {
+          border: 'hsl(var(--border))',
+          input: 'hsl(var(--input))',
+          ring: 'hsl(var(--ring))',
+          background: 'hsl(var(--background))',
+          foreground: 'hsl(var(--foreground))',
+          primary: {
+            DEFAULT: 'hsl(var(--primary))',
+            foreground: 'hsl(var(--primary-foreground))',
+          },
+          // ... other color variables
+        },
+        borderRadius: {
+          lg: 'var(--radius)',
+          md: 'calc(var(--radius) - 2px)',
+          sm: 'calc(var(--radius) - 4px)',
+        },
+        fontFamily: {
+          sans: ['var(--font-sans)', ...fontFamily.sans],
+        },
+      },
+    },
+    plugins: [require('tailwindcss-animate')],
+  };
+  ```
+
+#### **2. ShadcnUI Components**
+- **Component Styling**
+  ```typescript
+  const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
+    ({ className, variant, size, ...props }, ref) => {
+      return (
+        <button
+          className={cn(
+            'inline-flex items-center justify-center rounded-md text-sm font-medium',
+            'focus-visible:outline-none focus-visible:ring-2',
+            'disabled:pointer-events-none disabled:opacity-50',
+            buttonVariants({ variant, size, className })
+          )}
+          ref={ref}
+          {...props}
+        />
+      );
+    }
+  );
+  ```
+
+#### **3. Utility Functions**
+- **Class Name Merging**
+  ```typescript
+  import { type ClassValue, clsx } from 'clsx';
+  import { twMerge } from 'tailwind-merge';
+
+  export function cn(...inputs: ClassValue[]) {
+    return twMerge(clsx(inputs));
+  }
+  ```
+
+#### **4. Layout Patterns**
+- **Responsive Design**
+  ```tsx
+  <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+    <Card className="p-4 space-y-2">
+      <CardHeader className="flex items-center justify-between">
+        <CardTitle>Title</CardTitle>
+      </CardHeader>
+    </Card>
+  </div>
+  ```
+
+- **Flex Layouts**
+  ```tsx
+  <div className="flex flex-col space-y-4 md:flex-row md:space-x-4 md:space-y-0">
+    <div className="flex-1">Content</div>
+    <div className="flex-1">Content</div>
+  </div>
+  ```
+
+#### **5. Component Variants**
+- **Style Variants**
+  ```typescript
+  const buttonVariants = cva(
+    'inline-flex items-center justify-center rounded-md text-sm font-medium',
+    {
+      variants: {
+        variant: {
+          default: 'bg-primary text-primary-foreground hover:bg-primary/90',
+          destructive: 'bg-destructive text-destructive-foreground hover:bg-destructive/90',
+          outline: 'border border-input hover:bg-accent hover:text-accent-foreground',
+        },
+        size: {
+          default: 'h-10 px-4 py-2',
+          sm: 'h-9 px-3',
+          lg: 'h-11 px-8',
+        },
+      },
+      defaultVariants: {
+        variant: 'default',
+        size: 'default',
+      },
+    }
+  );
+  ```
+
+#### **7. Animation Classes**
+- **Transition Effects**
+  ```tsx
+  <div className="transition-all duration-200 ease-in-out hover:scale-105">
+    Hover me
+  </div>
+  ```
+
+#### **8. Best Practices**
+- Use semantic class names with `cn()` utility
+- Follow ShadcnUI component patterns
+- Maintain consistent spacing scales
+- Use CSS variables for theming
+- Implement responsive designs
+- Keep styles close to components
+- Use proper color variables
+- Follow accessibility guidelines
+
+This ensures:
+✅ Consistent styling across the application
+✅ Maintainable and scalable CSS
+✅ Proper theme support
+✅ Responsive layouts
+✅ Accessible components

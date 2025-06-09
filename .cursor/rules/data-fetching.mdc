@@ -1,0 +1,189 @@
+---
+description: Data Fetching and API Communication Guidelines
+globs: src/**/*.tsx, src/**/*.ts
+---
+---
+description: Data Fetching and API Communication Guidelines
+globs: src/**/*.tsx, src/**/*.ts
+---
+
+### **Data Fetching Guidelines**
+
+#### **1. SWR Implementation**
+
+- **Basic Get API Call**
+
+  ```typescript
+  const { data, error, isLoading } = useSWR<DataType>('/api/endpoint');
+  ```
+
+  - no need to pass fetcher. fetcher added in SWRConfig.
+
+- **Basic Mutation Call**
+
+  ```typescript
+  const { trigger, isMutating } = useSWRMutation<ResponseType>(
+    '/api/endpoint',
+    sendPostRequest / sendPutRequest / sendDeleteRequest,
+    {
+      onSuccess: (response) => {
+        toast({
+          title: 'Success',
+          description: response,
+        });
+      },
+      onError: (error) => {
+        console.error('Error uploading documents:', error);
+      },
+    }
+  );
+  ```
+
+  - reuseable utilty api calling functions (sendPostRequest, sendPutRequest, sendDeleteRequest) are defiend in `src/api/swrConfig.ts`.
+
+- **Global Configuration** (`src/api/swrConfig.ts`)
+
+  ```typescript
+  const SWRConfig = {
+    fetcher,
+    revalidateOnFocus: false,
+    revalidateOnReconnect: true,
+    revalidateOnMount: true,
+    refreshWhenOffline: false,
+    shouldRetryOnError: false,
+    onError: (error: AxiosError<IServerErrorResponse>) => {
+      serverErrorHandler(error);
+    },
+    onErrorRetry: (error, key, config, revalidate, { retryCount }) => {
+      console.log('🚀 ~ config, key:', config, key);
+      // Never retry on 404.
+      if (error.status === 404) return;
+
+      // Only retry up to 10 times.
+      if (retryCount >= 10) return;
+
+      // Retry after 5 seconds.
+      setTimeout(() => revalidate({ retryCount }), 5000);
+    },
+  };
+  ```
+
+#### **2. API Structure**
+
+- **API Client** (`src/config/apiConfig.ts`)
+
+  ```typescript
+  import axios from 'axios';
+
+  export const api = axios.create({
+    baseURL: import.meta.env.VITE_API_URL,
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+  ```
+
+- **API Endpoints** (`src/api/urls.ts`)
+  ```typescript
+  export const BACKEND_ENDPOINTS = {
+    auth: {
+      login: '/auth/login',
+      register: '/auth/register',
+    },
+    users: {
+      profile: '/users/profile',
+      update: '/users/update',
+    },
+  } as const;
+  ```
+
+#### **4. Error Handling**
+
+- **Global Error Handler By SWRConfig and handleApiError** (`src/utils/serverErrorHandler.ts`)
+
+- **Type-Safe Error Handling**
+  ```typescript
+  interface ApiError {
+    response?: {
+      data?: {
+        error?: {
+          reason: string[];
+        };
+      };
+    };
+  }
+  ```
+
+#### **5. Loading States**
+
+- **Loading Components**
+
+  ```typescript
+  if (isLoading) return <Loading />;
+  if (error) return <ErrorMessage error={error} />;
+  if (!data) return null;
+  ```
+
+- **Optimistic Updates**
+  ```typescript
+  const updateTodo = async (newTodo) => {
+    mutate('/api/todos', [...todos, newTodo], false);
+    await api.post('/api/todos', newTodo);
+  };
+  ```
+
+#### **6. Caching Strategy**
+
+- **Revalidation**
+
+  ```typescript
+  const { data } = useSWR('/api/data', fetcher, {
+    revalidateOnFocus: false,
+    revalidateIfStale: false,
+    dedupingInterval: 60000,
+  });
+  ```
+
+- **Cache Management**
+  ```typescript
+  // Clear cache on logout
+  export const logout = () => {
+    mutate(() => true, undefined, { revalidate: false });
+    cache.clear();
+  };
+  ```
+
+#### **7. Authentication**
+
+- **Auth Headers**
+
+  ```typescript
+  api.interceptors.request.use((config) => {
+    const token = getToken();
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+  });
+  ```
+
+- **Token Refresh**
+  ```typescript
+  api.interceptors.response.use(
+    (response) => response,
+    async (error) => {
+      if (error.response?.status === 401) {
+        await refreshToken();
+        return api(error.config);
+      }
+      return Promise.reject(error);
+    }
+  );
+  ```
+
+This structure ensures:
+✅ Consistent data fetching patterns
+✅ Proper error handling
+✅ Type-safe API communication
+✅ Efficient caching
+✅ Secure authentication flow
